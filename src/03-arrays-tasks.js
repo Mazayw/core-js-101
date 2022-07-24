@@ -564,15 +564,14 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((acc, el) => acc[el], arr);
 }
 
 /**
  * Swaps the head and tail of the specified array:
  * the head (first half) of array move to the end, the tail (last half) move to the start.
  * The middle element (if exists) leave on the same position.
- *
  *
  * @param {array} arr
  * @return {array}
@@ -586,8 +585,14 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const medIndex = Math.floor(arr.length / 2);
+  const start = arr.slice(0, medIndex);
+  const med = arr.length % 2 !== 0 ? arr.slice(medIndex, medIndex + 1) : [];
+  const end = med.length
+    ? arr.slice(medIndex + 1, arr.length)
+    : arr.slice(medIndex, arr.length);
+  return [...end, med, ...start].flat();
 }
 
 module.exports = {
